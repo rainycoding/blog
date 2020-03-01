@@ -1,0 +1,213 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: auto;
+    min-height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    background: url("../images/bg.png");
+}
+
+/*-----color-----*/
+.m-div-color-grey {
+    background-color: #A2AFA5 !important;
+}
+
+.m-text-color-black{
+    color: #212121 !important;
+}
+
+.m-text-color-teal {
+    color: #00B5AD !important;
+}
+
+/*----div height-----*/
+.m-div-height-small {
+    height: 82px !important;
+}
+
+/*----div width-----*/
+.m-div-width-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
+/*----div border-----*/
+.m-div-border-default {
+    border: none !important;
+    border-bottom: 2px solid #E9EEF7 !important;
+}
+
+/*----margin-----*/
+.m-margin-tag {
+    margin: 0 0.7em 0.5em 0.7em !important;
+}
+
+.m-margin-zone {
+    margin: 0 !important;
+}
+
+.m-margin-mini {
+    margin: 0.3em !important;
+}
+
+.m-margin-tiny {
+    margin: 0.5em !important;
+}
+
+.m-margin-small {
+    margin: 0.7em !important;
+}
+
+.m-margin-default {
+    margin: 1em !important;
+}
+
+.m-margin-left-small {
+    margin-left: 0.3em !important;
+}
+
+.m-margin-left-default {
+    margin-left: 1em !important;
+}
+
+.m-margin-left-large {
+    margin-left: 3em !important;
+}
+
+.m-margin-left-huge {
+    margin-left: 12em !important;
+}
+
+.m-margin-right-default {
+    margin-right: 1em !important;
+}
+
+.m-margin-bottom-default {
+    margin-bottom: 1em !important;
+}
+
+.m-margin-bottom-large {
+    margin-bottom: 2em !important;
+}
+
+.m-margin-bottom-huge {
+    margin-bottom: 6em !important;
+}
+
+.m-margin-top-default {
+    margin-top: 1em !important;
+}
+
+.m-margin-top-large {
+    margin-top: 3em !important;
+}
+
+/*-----padding------*/
+.m-padding-zone {
+    padding: 0 !important;
+}
+
+.m-padding-tb-small {
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+
+.m-padding-tb-default {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+
+.m-padding-tb-large {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+
+.m-padding-lr-default {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
+
+.m-padding-lr-large-responsive {
+    padding-left: 3em !important;
+    padding-right: 3em !important;
+}
+
+.m-padding-mini {
+    padding: 0.3em !important;
+}
+
+
+.m-padding-tiny {
+    padding: 0.4em !important;
+}
+
+.m-padding-small {
+    padding: 0.6em !important;
+}
+
+.m-padding-default {
+    padding: 3em 1em 1em 1em !important;
+}
+
+.m-padding-large {
+    padding: 6em !important;
+}
+
+.m-padding-huge {
+    padding: 12em !important;
+}
+
+
+/*-----text color-----*/
+.m-text-color-grey {
+    color: #555555 !important;
+}
+
+/*-----text font-----*/
+.m-text-font-thin {
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1.8;
+}
+
+.m-text-font-large {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/*----position-----*/
+.m-top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.m-fixed {
+    position: fixed !important;
+}
+
+.m-bottom-right {
+    bottom: 85px !important;
+    right: 36px !important;
+}
+
+@media screen and (max-width: 768px){
+    .m-moblie-hide {
+        display: none !important;
+    }
+    .m-moblie-show {
+        display: block !important;
+    }
+    .m-padding-lr-large-responsive {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .m-mobile-style {
+        width: 100%;
+        margin-bottom: 0.3em !important;
+    }
+}

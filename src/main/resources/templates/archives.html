@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('归档')" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <th:block th:include="include :: nav(4)" />
+
+    <!-- 中间内容 -->
+    <div class="m-padding-tb-large" style="padding-bottom: 6em !important;">
+        <div class="ui container">
+            <!-- header -->
+            <div class="ui attached segment">
+                <div class="ui two column grid">
+                    <div class="column">
+                        <h3 class="ui header">归档</h3>
+                    </div>
+                    <div class="right aligned column">
+                        共 <h3 class="ui orange header" style="display: inline-block;" th:text="${num}">14</h3> 篇
+                    </div>
+                </div>
+            </div>
+
+            <th:block th:each="item : ${archiveMap}">
+                <h2 class="ui center aligned header" th:text="${item.key}">2020</h2>
+                <div class="ui fluid vertical menu">
+                    <a th:each="blog : ${item.value}" th:href="@{/blog/{id}(id=${blog.id})}" class="item">
+                        <span>
+                            <i class="mini circle icon" style="margin-right: 10px;"></i>
+                            <h4 style="display: inline" th:text="${blog.title}">关于刻意练习的清单</h4>
+                            <div class="ui teal basic left pointing label m-padding-tiny" th:text="${#temporals.format(blog.updateTime, 'MMMdd')}">2月18日</div>
+                        </span>
+                        <div class="ui orange basic left pointing label m-padding-tiny" th:text="${blog.flag}">原创</div>
+                    </a>
+                </div>
+            </th:block>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <th:block th:include="include :: copyRight" />
+</body>
+<th:block th:include="include :: common-js" />
+<script>
+    $("#toggle").click(function () {
+        $(".m-item").toggleClass("m-moblie-hide");
+    });
+</script>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('博客首页')" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <th:block th:include="include :: nav(1)" />
+
+    <!-- 中间内容 -->
+    <div class="m-padding-tb-large" style="padding-bottom: 6em !important;">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!-- 博客 -->
+                <div class="eleven wide column">
+                    <!-- header -->
+                    <div class="ui attached segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <h3 class="ui header">博客</h3>
+                            </div>
+                            <div class="right aligned column">
+                                共 <h3 class="ui orange header" style="display: inline-block;" th:text="${page.totalElements}">14</h3> 篇
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 博客列表 -->
+                    <div class="ui attached segment">
+                        <div th:each="blog : ${page.content}" class="ui padded vertical segment m-padding-default">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header"><a th:href="@{@{/blog/{id}(id=${blog.id})}}" th:text="${blog.title}" style="color: #000;">线索二叉树</a></h3>
+                                    <p class="m-text-font-thin" th:text="|${blog.description}...|">n个节点的二叉链表中含有n + 1【公式：2n - (n - 1) = n + 1】个空指针域。利用二叉链表中的空指针域，存放指向节点在某种遍历次序下的前驱和后继节点的指针（这种附加的指针称为“线索”）</p>
+                                    <div class="ui middle aligned grid">
+                                        <div class="twelve wide column">
+                                            <div class="ui horizontal link list">
+                                                <div class="item">
+                                                    <img src="https://picsum.photos/id/1001/100/100" th:src="@{${blog.user.avatar}}" class="ui avatar image">
+                                                    <div class="content"><div class="header" th:text="${blog.user.nickname}">沐雨</div></div>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="calendar icon"></i> <span th:text="${#temporals.format(blog.updateTime, 'yyyy-MM-dd')}">2020-02-20</span>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>111 <span th:text="${blog.views}">2003</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned four wide column">
+                                            <div class="ui labeled button m-margin-bottom-default">
+                                                <a href="#" class="ui teal basic button m-padding-mini" th:text="${blog.category.name}">springboot</a>
+                                                <div class="ui teal basic left pointing label m-padding-mini" th:text="${#arrays.length(blog.category.blogs)}">20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="middle aligned five wide column">
+                                    <a th:href="@{/blog/{id}(id=${blog.id})}">
+                                        <img src="https://picsum.photos/id/1001/800/450" th:src="@{${blog.firstPicture}}" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 分页 -->
+                    <div class="ui center aligned attached segment" th:if="${page.totalPages} > 1">
+                        <div class="ui middle aligned two column grid">
+                            <div class="left aligned column">
+                                <a th:unless="${page.first}" th:href="@{/(page=${page.number - 1})}" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a th:unless="${page.last}" th:href="@{/(page=${page.number + 1})}" class="ui mini teal basic button">上一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- top栏 -->
+                <div class="five wide column">
+                    <!-- 分类 -->
+                    <div class="ui segments m-margin-bottom-large">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="idea icon"></i>分类
+                                </div>
+                                <div class="right aligned column">
+                                    <a th:href="@{/category}">more<i class="angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui teal segment">
+                            <div class="ui fluid vertical menu">
+                                <a th:each="category : ${categories}" th:href="@{/category(id=${category.id})}" class="item">
+                                    <span th:text="${category.name}">学习日志</span>
+                                    <div class="ui teal basic left pointing label" th:text="${#arrays.length(category.blogs)}">100</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 标签 -->
+                    <div class="ui segments m-margin-bottom-large">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="tag icon"></i>标签
+                                </div>
+                                <div class="right aligned column">
+                                    <a th:href="@{/tags}">more<i class="angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui teal segment">
+                            <a th:each="tag : ${tags}" th:href="@{/tags/(id=${tag.id})}" class="ui tag label m-margin-small">
+                                <span th:text="${tag.name}">java</span>
+                                <div class="detail" th:text="${#arrays.length(tag.blogs)}">50</div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 最新推荐 -->
+                    <div class="ui segments m-margin-bottom-large">
+                        <div class="ui secondary segment">
+                            <i class="bookmark icon"></i>最新推荐
+                        </div>
+                        <div class="ui teal segment">
+                            <div class="ui fluid vertical menu" th:each="blog : ${blogs}">
+                                <a th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}" class="item">用户故事（User Story）</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 二维码 -->
+                    <h4 class="ui horizontal divider header">扫码关注我</h4>
+                    <div class="ui centered card" style="width: 170px;">
+                        <img th:src="@{/images/wechat.png}" class="ui rounded image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <th:block th:include="include :: copyRight" />
+</body>
+<th:block th:include="include :: common-js" />
+<script>
+    $("#toggle").click(function () {
+        $(".m-item").toggleClass("m-moblie-hide");
+    });
+</script>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('分类')" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <th:block th:include="include :: nav(3)" />
+
+    <!-- 中间内容 -->
+    <div class="m-padding-tb-large" style="padding-bottom: 6em !important;">
+        <div class="ui container">
+            <!-- header -->
+            <div class="ui attached segment">
+                <div class="ui two column grid">
+                    <div class="column">
+                        <h3 class="ui header">分类</h3>
+                    </div>
+                    <div class="right aligned column">
+                        共 <h3 class="ui orange header" style="display: inline-block;" th:text="${#arrays.length(categories)}">14</h3> 个
+                    </div>
+                </div>
+            </div>
+            <!-- 分类列表 -->
+            <div class="ui attached segment">
+                <div th:each="category : ${categories}" class="ui labeled button m-margin-bottom-default">
+                    <a th:href="@{/category(id=${category.id})}" class="ui basic button" th:classappend="${category.id == activeCategoryId} ? 'teal'" th:text="${category.name}">前端</a>
+                    <div class="ui basic left pointing label" th:classappend="${category.id == activeCategoryId} ? 'teal'" th:text="${#arrays.length(category.blogs)}">20</div>
+                </div>
+            </div>
+            <!-- 博客列表 -->
+            <div class="ui teal top attached segment">
+                <div th:each="blog : ${page.content}" class="ui padded vertical segment m-padding-default">
+                    <div class="ui mobile reversed stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui header"><a th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}" style="color: #000"></a></h3>
+                            <p class="m-text-font-thin" th:text="|${blog.description}...|"></p>
+                            <div class="ui middle aligned grid">
+                                <div class="twelve wide column">
+                                    <div class="ui horizontal link list">
+                                        <div class="item">
+                                            <img src="https://picsum.photos/id/1001/100/100" th:src="${blog.user.avatar}" class="ui avatar image">
+                                            <div class="content"><div class="header" th:text="${blog.user.nickname}">沐雨</div></div>
+                                        </div>
+                                        <div class="item">
+                                            <i class="calendar icon"></i> <span th:text="${#temporals.format(blog.updateTime, 'yyyy-MM-dd')}">2020-2-22</span>
+                                        </div>
+                                        <div class="item">
+                                            <i class="eye icon"></i> <span th:text="${blog.views}">2003</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned four wide column">
+                                    <div class="ui mini labeled button m-margin-bottom-default">
+                                        <a href="#" class="ui teal basic button m-padding-mini" th:text="${blog.category.name}">前端</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="middle aligned five wide column">
+                            <a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                <img src="https://picsum.photos/id/1001/800/450" th:src="@{${blog.firstPicture}}" class="ui rounded image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分页 -->
+            <div class="ui center aligned attached segment" th:if="${page.totalPages} > 1">
+                <div class="ui middle aligned two column grid">
+                    <div class="left aligned column">
+                        <a th:unless="${page.first}" th:href="@{/category(id=${activeCategoryId}, page=${page.number - 1})}" class="ui mini teal basic button">上一页</a>
+                    </div>
+                    <div class="right aligned column">
+                        <a th:unless="${page.last}" th:href="@{/category(id=${activeCategoryId}, page=${page.number + 1})}" class="ui mini teal basic button">下一页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <th:block th:include="include :: copyRight" />
+</body>
+<th:block th:include="include :: common-js" />
+<script>
+    $("#toggle").click(function () {
+        $(".m-item").toggleClass("m-moblie-hide");
+    });
+</script>
+</html>

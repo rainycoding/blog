@@ -1,0 +1,73 @@
+<!-- 通用CSS -->
+<head th:fragment="header(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/me.css}">
+</head>
+
+<!-- 博客详情插件CSS -->
+<div th:fragment="blog-detail-css">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" th:href="@{/css/typo.css}">
+</div>
+
+<!-- 博客详情插件JS -->
+<div th:fragment="blog-detail-js">
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script th:src="@{/lib/prism/prism.js}"></script>
+    <script th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+</div>
+
+<!-- 通用JS -->
+<div th:fragment="common-js">
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+</div>
+
+<!-- 导航栏 -->
+<div th:fragment="nav(n)">
+    <nav class="ui attached inverted segment m-div-color-grey m-div-border-default">
+        <div class="ui container">
+            <div class="ui inverted stackable menu m-div-color-grey">
+                <!-- logo -->
+                <div class="item">
+                    <h2 class="ui header"><a th:href="@{/}" style="color: #000;">沐雨</a></h2>
+                </div>
+                <!-- 导航 -->
+                <a th:href="@{/}" class="m-item item m-text-color-grey m-moblie-hide" th:classappend="${n == 1} ? 'active'"><i class="home icon"></i>首页</a>
+                <a th:href="@{/category}" class="m-item item m-text-color-grey m-moblie-hide" th:classappend="${n == 3} ? 'active'"><i class="idea icon"></i>分类</a>
+                <a th:href="@{/tags}" class="m-item item m-text-color-grey m-moblie-hide" th:classappend="${n == 2} ? 'active'"><i class="tag icon"></i>标签</a>
+                <a th:href="@{/archives}" class="m-item item m-text-color-grey m-moblie-hide" th:classappend="${n == 4} ? 'active'"><i class="clone icon"></i>归档</a>
+                <a th:href="@{/about}" class="m-item item m-text-color-grey m-moblie-hide" th:classappend="${n == 5} ? 'active'"><i class="info icon"></i>关于我</a>
+                <!-- 搜索 -->
+                <div class="right m-item item m-moblie-hide">
+                    <form name="search" th:action="@{/search}" method="post">
+                        <div class="ui icon input">
+                            <input type="text" name="query" th:value="${query}" placeholder="Search...">
+                            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <a id="toggle" class="ui button icon m-top-right m-moblie-show" style="display: none;">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+</div>
+
+<!-- 底部footer栏 -->
+<div th:fragment="copyRight">
+    <footer class="ui inverted vertical segment m-div-color-grey" style="position: absolute; bottom: 0; width: 100%; height: 46px;border-top: 1px solid #DEDEDF;">
+        <div class="ui center aligned container">
+            <p class="m-text-color-grey">© Copyright 2020 沐雨 - All Rights Reserved</p>
+        </div>
+    </footer>
+</div>

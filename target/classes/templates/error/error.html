@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('系统异常')" />
+</head>
+<body>
+<!-- 导航栏 -->
+<nav class="ui attached inverted segment m-div-color-grey m-div-border-default">
+    <div class="ui container">
+        <div class="ui inverted stackable menu m-div-color-grey">
+            <!-- logo -->
+            <div class="item">
+                <h2 class="ui header">沐雨</h2>
+            </div>
+            <!-- 导航 -->
+            <a th:href="@{/}" class="m-item item m-text-color-grey m-moblie-hide"><i class="home icon"></i>首页</a>
+            <a th:href="@{/tags}" class="m-item item m-text-color-grey m-moblie-hide"><i class="tag icon"></i>标签</a>
+            <a th:href="@{/category}" class="m-item item m-text-color-grey m-moblie-hide"><i class="idea icon"></i>分类</a>
+            <a th:href="@{/file}" class="m-item item m-text-color-grey m-moblie-hide"><i class="clone icon"></i>归档</a>
+            <a th:href="@{/about}" class="m-item item m-text-color-grey m-moblie-hide"><i class="info icon"></i>关于我</a>
+            <!-- 搜索 -->
+            <div class="right m-item item m-moblie-hide">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="toggle" class="ui button icon m-top-right m-moblie-show" style="display: none;">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!-- 404错误信息 -->
+<div class="ui container" style="padding: 16em;">
+    <div class="ui error message m-padding-large">
+        <div class="ui center aligned container">
+            <h2>500</h2>
+            <p>系统异常，请稍后再试(ﾟ⊿ﾟ)ﾂ</p>
+        </div>
+    </div>
+</div>
+
+<!-- 异常错误信息，需打开网页源码查看 -->
+<div>
+    <div th:utext="'&lt;!--'" th:remove="tag"></div>
+    <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
+    <div th:utext="'Exception Message : ' + ${exception.message}" th:remove="tag"></div>
+    <ul th:remove="tag">
+        <li th:each="st : ${exception.stackTrace}" th:remove="tag"><span th:utext="${st}" th:remove="tag"></span></li>
+    </ul>
+    <div th:utext="'--&gt;'" th:remove="tag"></div>
+</div>
+
+<!-- 底部footer栏 -->
+<footer class="ui inverted vertical segment m-div-color-grey" style="position: absolute; bottom: 0; width: 100%; height: 46px;border-top: 1px solid #DEDEDF;">
+    <div class="ui center aligned container">
+        <p class="m-text-color-grey">© Copyright 2020 沐雨 - All Rights Reserved</p>
+    </div>
+</footer>
+</body>
+</html>

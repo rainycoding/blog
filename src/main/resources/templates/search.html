@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('搜索结果')" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <th:block th:include="include :: nav(0)" />
+
+    <!-- 中间内容 -->
+    <div class="m-padding-tb-large" style="padding-bottom: 6em !important;">
+        <div class="ui container">
+            <!-- header -->
+            <div class="ui attached segment">
+                <div class="ui two column grid">
+                    <div class="column">
+                        <h3 class="ui header">搜索结果</h3>
+                    </div>
+                    <div class="right aligned column">
+                        共 <h3 class="ui orange header" style="display: inline-block;" th:text="${page.totalElements}">14</h3> 篇
+                    </div>
+                </div>
+            </div>
+
+            <!-- 博客列表 -->
+            <div class="ui teal top attached segment">
+                <div th:each="blog : ${page.content}" class="ui padded vertical segment m-padding-default">
+                    <div class="ui mobile reversed stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui header"><a th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}" style="color: #000;">线索二叉树</a></h3>
+                            <p class="m-text-font-thin" th:text="${blog.description}">n个节点的二叉链表中含有n + 1【公式：2n - (n - 1) = n + 1】个空指针域。利用二叉链表中的空指针域，存放指向节点在某种遍历次序下的前驱和后继节点的指针（这种附加的指针称为“线索”）</p>
+                            <div class="ui middle aligned grid">
+                                <div class="eleven wide column">
+                                    <div class="ui horizontal link list">
+                                        <div class="item">
+                                            <img src="https://picsum.photos/id/1001/100/100" th:src="@{${blog.user.avatar}}" class="ui avatar image">
+                                            <div class="content"><div class="header" th:text="${blog.user.nickname}">沐雨</div></div>
+                                        </div>
+                                        <div class="item">
+                                            <i class="calendar icon"></i><span th:text="${#temporals.format(blog.updateTime, 'yyyy-MM-dd')}">2020-2-22</span>
+                                        </div>
+                                        <div class="item">
+                                            <i class="eye icon"></i><span th:text="${blog.views}">2003</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right aligned five wide column">
+                                    <div class="ui labeled button m-margin-bottom-default">
+                                        <a href="#" class="ui teal basic button m-padding-mini" th:text="${blog.category.name}">springboot</a>
+                                        <div class="ui teal basic left pointing label m-padding-mini" th:text="${#arrays.length(blog.category.blogs)}">20</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="middle aligned five wide column">
+                            <a href="#" target="_blank">
+                                <img src="https://picsum.photos/id/1001/800/450" th:src="@{${blog.firstPicture}}" class="ui rounded image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分页 -->
+            <div class="ui center aligned attached segment" th:if="${page.totalPages} > 1">
+                <div class="ui middle aligned two column grid">
+                    <div class="left aligned column">
+                        <a th:unless="${page.first}" th:href="@{/(page=${page.number - 1})}" class="ui mini teal basic button">上一页</a>
+                    </div>
+                    <div class="right aligned column">
+                        <a th:unless="${page.last}" th:href="@{/(page=${page.number + 1})}" class="ui mini teal basic button">上一页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <th:block th:include="include :: copyRight" />
+</body>
+<th:block th:include="include :: common-js" />
+<script>
+    $("#toggle").click(function () {
+        $(".m-item").toggleClass("m-moblie-hide");
+    });
+</script>
+</html>

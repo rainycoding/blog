@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('关于我')" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <th:block th:include="include :: nav(5)" />
+
+    <!-- 中间内容 -->
+    <div class="m-padding-tb-large" style="padding-bottom: 6em !important;">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <div class="eleven wide column">
+                    <div class="ui segment">
+                        <img th:src="@{/images/about.jpg}" class="ui rounded image">
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="ui top teal attached segment">
+                        <h3 class="ui header">关于我</h3>
+                    </div>
+                    <div class="ui attached segment">
+                        <p class="m-text-font-thin">曾泉明，河北经贸大学软件工程大二学生，爱生活、爱学习、爱编程、爱软件，正在不断地朝自己的目标努力前进着...</p>
+                        <p class="m-text-font-thin">软件工程大二学生，个人开发者、电子商务课题组成员，希望通过自己的努力来带动身边的同学。</p>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui orange basic left pointing label">编程</div>
+                        <div class="ui orange basic left pointing label">游戏</div>
+                        <div class="ui orange basic left pointing label">思考</div>
+                        <div class="ui orange basic left pointing label">音乐</div>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui teal tag label m-margin-tag">Java</div>
+                        <div class="ui teal tag label m-margin-tag">Web前端</div>
+                        <div class="ui teal tag label m-margin-tag">算法</div>
+                        <div class="ui teal tag label m-margin-tag">SpringBoot</div>
+                        <div class="ui teal tag label m-margin-tag">MySQL</div>
+                        <div class="ui teal tag label m-margin-tag">Docker</div>
+                    </div>
+                    <div class="ui bottom attached segment">
+                        <a href="https://github.com/fanghua-code" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
+                        <a href="#" class="ui wechatbtn circular icon button"><i class="wechat icon"></i> </a>
+                        <a href="#" class="ui qq circular icon button" data-content="330029675" data-position="bottom center"><i class="qq icon"></i></a>
+                        <a href="#" class="ui mail circular icon button" data-content="330029675@qq.com" data-position="bottom center"><i class="mail icon"></i></a>
+                    </div>
+
+                    <div class="ui wechat flowing popup transition hidden">
+                        <img th:src="@{/images/wechat.png}" class="ui rounded image" style="width: 100px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <th:block th:include="include :: copyRight" />
+</body>
+<th:block th:include="include :: common-js" />
+<script>
+    $("#toggle").click(function () {
+        $(".m-item").toggleClass("m-moblie-hide");
+    });
+    $(".qq").popup();
+
+    $(".mail").popup();
+
+    $(".wechatbtn").popup({
+        popup: $(".wechat.popup"),
+        position: "bottom center"
+    });
+</script>
+</html>

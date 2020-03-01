@@ -1,0 +1,15 @@
+spring:
+  thymeleaf:
+    mode: HTML
+
+  profiles:
+    active: dev
+
+comment:
+  avatar: /images/avatar.png
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('标签管理')" />
+</head>
+<body>
+    <!-- 导航栏 -->
+    <th:block th:include="/admin-ui/include :: nav(3)" />
+
+    <!-- 中间内容 -->
+    <div class="m-padding-tb-large" style="padding-bottom: 6em !important;">
+        <div class="ui container">
+            <div class="ui form segment">
+                <input type="hidden" name="page">
+                <div class="inline fields">
+                    <div class="field">
+                        <input type="text" name="tagName" class="ui input" placeholder="标签">
+                    </div>
+                    <div class="field">
+                        <button type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>搜索</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui segment">
+                <div th:fragment="tagList" id="table-container">
+                    <table class="ui tablet center aligned stackable table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>名称</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="tag, iterStat : ${page.content}">
+                            <td th:text="${iterStat.count}"></td>
+                            <td>
+                                <a class="ui tag label m-margin-small">
+                                    <span th:text="${tag.name}">java</span>
+                                    <div class="detail" th:text="${#arrays.length(tag.blogs)}"></div>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" th:data-id="${tag.id}" class="ui edit mini teal button">编辑</button>
+                                <button type="button" th:attr="url=@{/admin/tag/} + ${tag.id}" class="ui del-btn mini red button">删除</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="ui two column grid">
+                        <div class="column">
+                            <button id="addTag" class="ui mini teal basic button">新增</button>
+                        </div>
+                        <div class="right aligned column" th:if="${page.totalPages > 1}">
+                            <div class="ui mini pagination menu">
+                                <a th:unless="${page.first}" onclick="page(this)" th:attr="data-page=${page.number}-1" class="icon item">
+                                    <i class="left chevron icon"></i>
+                                </a>
+                                <a th:each="i : ${#numbers.sequence(1, page.totalPages)}" class="item" th:classappend="${i - 1 == page.number} ? 'active'" th:text="${i}" onclick="page(this)" th:attr="data-page=${i}-1"></a>
+                                <a th:unless="${page.last}" onclick="page(this)" th:attr="data-page=${page.number}+1" class="icon item">
+                                    <i class="right chevron icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示：</div>
+                <p th:text="${message}"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 发送DELETE请求所需的表单 -->
+    <form id="removeTag" method="post">
+        <input type="hidden" name="_method" value="delete">
+    </form>
+
+    <!-- 点击新增出现的模态框 -->
+    <div id="add" class="ui center aligned modal m-padding-large" >
+        <div class="ui container" style="width: 400px;">
+            <h2 style="text-align: center;">新增标签</h2>
+            <form class="ui form segment" th:action="@{/admin/tag}" method="post">
+                <div class="field">
+                    <div class="ui left labeled input">
+                        <label class="ui compact teal basic label">分类</label>
+                        <input type="text" name="name" placeholder="分类名称">
+                    </div>
+                </div>
+                <div class="field">
+                    <button class="ui teal fluid button">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 点击编辑弹出的模态框 -->
+    <div id="edit" class="ui center aligned modal m-padding-large" >
+        <div class="ui container" style="width: 400px;">
+            <h2 style="text-align: center;">编辑分类</h2>
+            <form class="ui form segment" th:action="@{/admin/tag}" method="post">
+                <input type="hidden" name="_method" value="put">
+                <div class="field">
+                    <div class="ui left labeled input">
+                        <label class="ui compact teal basic label">分类</label>
+                        <input type="hidden" id="edit_id" name="id">
+                        <input id="edit_tag" type="text" name="name" placeholder="分类名称">
+                    </div>
+                </div>
+                <div class="field">
+                    <button class="ui teal fluid button">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <th:block th:include="/admin-ui/include :: footer" />
+</body>
+<th:block th:include="include :: common-js" />
+<script th:inline="javascript">
+    $("#toggle").click(function () {
+        $(".m-item").toggleClass("m-moblie-hide");
+    });
+    $('.ui.dropdown').dropdown({
+        on: "hover"
+    });
+    $('#selects').dropdown();
+
+    /* 点击新增弹出模态框 */
+    $("#addTag").click(function () {
+        $("#add").modal("show");
+    });
+
+    $(".edit").click(function () {
+        var tag_id = $(this).data("id");
+        $.get("/admin/tag/" + tag_id, function (data) {
+            console.log(data);
+            $("#edit_id").attr("value", data.id);
+            $("#edit_tag").attr("value", data.name);
+            $("#edit").modal("show");
+        }, "json");
+    });
+
+    /* 实现Delete请求 */
+    $(".del-btn").click(function () {
+        $("#removeTag").attr("action", $(this).attr("url")).submit();
+        return false;
+    });
+
+    $(".ui.form").form({
+        fields: {
+            name: {
+                identifier: "name",
+                rules: [{
+                    type: "empty"
+                }]
+            }
+        }
+    });
+
+    /* 关闭提示 */
+    $(".message .close").on("click", function () {
+        $(this).closest(".message").transition("fade");
+    });
+
+    function page(obj) {
+        $("[name='page']").val($(obj).data("page"));
+        loadList();
+    }
+
+    $("#search-btn").click(function () {
+        $("[name='page']").val(0);
+        loadList();
+    });
+    
+    function loadList() {
+        $("#table-container").load(/*[[@{/admin/tags}]]*/"/admin/tags", {tagName: $("[name='tagName']").val(), page: $("[name='page']").val()}, function () {
+            $("#addTag").click(function () {
+                $("#add").modal("show");
+            });
+
+            $(".edit").click(function () {
+                var tag_id = $(this).data("id");
+                $.get("/admin/tag/" + tag_id, function (data) {
+                    console.log(data);
+                    $("#edit_id").attr("value", data.id);
+                    $("#edit_tag").attr("value", data.name);
+                    $("#edit").modal("show");
+                }, "json");
+            });
+
+            /* 实现Delete请求 */
+            $(".del-btn").click(function () {
+                $("#removeTag").attr("action", $(this).attr("url")).submit();
+                return false;
+            });
+        });
+    }
+</script>
+</html>
