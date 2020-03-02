@@ -15,19 +15,24 @@ import java.util.List;
  */
 public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificationExecutor<Blog> {
 
-    @Query("select b from Blog b where b.recommend = true")
+    @Query("select count(b) from Blog b where b.published = true ")
+    public int getNum();
+
+    @Query("select b from Blog b where b.recommend = true and b.published = true")
     public List<Blog> findTop(Pageable pageable);
 
     @Modifying
     @Query("update Blog b set b.views = b.views + 1 where b.id = ?1")
     public int updateViews(Long id);
 
-    public Page<Blog> findBlogsByCategoryId(Long categoryId, Pageable pageable);
+    public Page<Blog> findBlogsByPublishedTrue(Pageable pageable);
 
-    @Query("select function('date_format', b.updateTime, '%Y') as year from Blog b group by function('date_format', b.updateTime, '%Y') order by year desc")
+    public Page<Blog> findBlogsByCategoryIdAndPublishedTrue(Long categoryId, Pageable pageable);
+
+    @Query("select function('date_format', b.updateTime, '%Y') as year from Blog b where b.published = true group by function('date_format', b.updateTime, '%Y') order by year desc")
     public List<String> findYears();
 
-    @Query("select b from  Blog b where function('date_format', b.updateTime, '%Y') = ?1")
+    @Query("select b from  Blog b where function('date_format', b.updateTime, '%Y') = ?1 and b.published = true")
     public List<Blog> findBlogsByYear(String year);
 
 //    @Query("select b from Blog b where b.title like ?1 or b.content like ?1")

@@ -21,10 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 曾泉明 on 2020/2/27 13:38
@@ -38,7 +35,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int getNum() {
-        return (int) blogRepository.count();
+        return blogRepository.getNum();
     }
 
     @Transactional
@@ -102,7 +99,7 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public Page<Blog> listBlogs(Pageable pageable) {
-        return blogRepository.findAll(pageable);
+        return blogRepository.findBlogsByPublishedTrue(pageable);
     }
 
     @Transactional
@@ -111,14 +108,15 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findAll(new Specification<Blog>() {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> list = new ArrayList<Predicate>();
-                Predicate predicate = null;
+                List<Predicate> listOr = new ArrayList<Predicate>();
+                List<Predicate> listAnd = new ArrayList<Predicate>();
                 if (query != null && !"".equals(query)) {
-                    list.add(criteriaBuilder.like(root.get("title"), "%" + query + "%"));
-                    list.add(criteriaBuilder.like(root.get("content"), "%" + query + "%"));
-                    predicate = criteriaQuery.where(criteriaBuilder.or(list.toArray(new Predicate[list.size()]))).getRestriction();
+                    listOr.add(criteriaBuilder.like(root.get("title"), "%" + query + "%"));
+                    listOr.add(criteriaBuilder.like(root.get("content"), "%" + query + "%"));
+                    listAnd.add(criteriaBuilder.or(listOr.toArray(new Predicate[listOr.size()])));
                 }
-                return predicate;
+                listAnd.add(criteriaBuilder.equal(root.get("published"), true));
+                return criteriaQuery.where(criteriaBuilder.and(listAnd.toArray(new Predicate[listAnd.size()]))).getRestriction();
             }
         }, pageable);
     }
@@ -129,10 +127,19 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findAll(new Specification<Blog>() {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> list = new ArrayList<Predicate>();
                 Join join = root.join("tags");
-                return criteriaBuilder.equal(join.get("id"), tagId);
+                list.add(criteriaBuilder.equal(join.get("id"), tagId));
+                list.add(criteriaBuilder.equal(root.get("published"), true));
+                return criteriaQuery.where(criteriaBuilder.and(list.toArray(new Predicate[list.size()]))).getRestriction();
             }
         }, pageable);
+    }
+
+    @Transactional
+    @Override
+    public Page<Blog> listBlogsByCategoryId(Long categoryId, Pageable pageable) {
+        return blogRepository.findBlogsByCategoryIdAndPublishedTrue(categoryId, pageable);
     }
 
     @Transactional
@@ -146,7 +153,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Map<String, List<Blog>> archiveBlog() {
         List<String> years = blogRepository.findYears();
-        Map<String, List<Blog>> map = new HashMap<String, List<Blog>>();
+        Map<String, List<Blog>> map = new LinkedHashMap<String, List<Blog>>();
         for (String year : years) {
             map.put(year, blogRepository.findBlogsByYear(year));
         }

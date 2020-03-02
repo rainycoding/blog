@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="include :: header('博客发布')" />
-    <th:block th:include="/admin-ui/include :: editormd-css" />
+    <th:block th:include="admin-ui/include :: editormd-css" />
 </head>
 <body>
     <!-- 导航栏 -->
-    <th:block th:include="/admin-ui/include :: nav(1)" />
+    <th:block th:include="admin-ui/include :: nav(1)" />
     <div class="ui attached pointing menu" style="background-color: #F5F5F5">
         <div class="ui container">
             <div class="right menu">
@@ -118,10 +118,10 @@
     </div>
 
     <!-- 底部栏 -->
-    <th:block th:include="/admin-ui/include :: footer" />
+    <th:block th:include="admin-ui/include :: footer" />
 </body>
 <th:block th:include="include :: common-js" />
-<th:block th:include="/admin-ui/include :: editormd-js" />
+<th:block th:include="admin-ui/include :: editormd-js" />
 <script th:inline="javascript">
     var contentEditor;
     $(function () {

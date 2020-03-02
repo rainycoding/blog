@@ -257,4 +257,19 @@ public class Blog {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        if (obj instanceof Blog) {
+            Blog blog = (Blog) obj;
+            return this.getId().equals(blog.getId());
+        }
+        return false;
+    }
 }

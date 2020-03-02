@@ -63,7 +63,7 @@ public class BlogController {
         model.addAttribute("tags", tags);
         model.addAttribute("categories", categories);
         model.addAttribute("blog", new Blog());
-        return "/admin-ui/blog-release";
+        return "admin-ui/blog-release";
     }
 
     @GetMapping("/blog/{id}/release")
@@ -75,7 +75,7 @@ public class BlogController {
         model.addAttribute("tags", tags);
         model.addAttribute("categories", categories);
         model.addAttribute("blog", blog);
-        return "/admin-ui/blog-release";
+        return "admin-ui/blog-release";
     }
 
     @PostMapping("/blog")

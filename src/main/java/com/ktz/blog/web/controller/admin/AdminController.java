@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private String prefix = "/admin-ui/";
+    private String prefix = "admin-ui/";
 
     @Autowired
     private UserService userService;

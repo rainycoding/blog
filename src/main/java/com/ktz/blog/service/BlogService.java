@@ -28,6 +28,8 @@ public interface BlogService {
 
     public Page<Blog> listBlogs(Long tagId, Pageable pageable);
 
+    public Page<Blog> listBlogsByCategoryId(Long categoryId, Pageable pageable);
+
     public List<Blog> listRecommendBlog(Integer size);
 
     public Map<String, List<Blog>> archiveBlog();

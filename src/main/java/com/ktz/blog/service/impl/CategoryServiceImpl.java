@@ -21,6 +21,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +69,20 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> listCategoryTop(Integer size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
         Pageable pageable = PageRequest.of(0, size, sort);
-        return categoryRepository.findTop(pageable);
+        List<Category> categoryTop = categoryRepository.findTop(pageable);
+        List<Blog> temp = null;
+        for (int i = 0; i < categoryTop.size(); i++) {
+            temp = new ArrayList<Blog>();
+            List<Blog> blogs = categoryTop.get(i).getBlogs();
+            temp.addAll(blogs);
+            for (Blog blog : blogs) {
+                if (!blog.isPublished()) {
+                    temp.remove(blog);
+                }
+            }
+            categoryTop.get(i).setBlogs(temp);
+        }
+        return categoryTop;
     }
 
     @Transactional

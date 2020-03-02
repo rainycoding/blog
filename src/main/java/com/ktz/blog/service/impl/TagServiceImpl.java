@@ -89,7 +89,20 @@ public class TagServiceImpl implements TagService {
     public List<Tag> listTagTop(Integer size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
         Pageable pageable = PageRequest.of(0, size, sort);
-        return tagRepository.findTop(pageable);
+        List<Tag> tagTop = tagRepository.findTop(pageable);
+        List<Blog> temp = null;
+        for (int i = 0; i < tagTop.size(); i++) {
+            temp = new ArrayList<Blog>();
+            List<Blog> blogs = tagTop.get(i).getBlogs();
+            temp.addAll(blogs);
+            for (Blog blog : blogs) {
+                if (!blog.isPublished()) {
+                    temp.remove(blog);
+                }
+            }
+            tagTop.get(i).setBlogs(temp);
+        }
+        return tagTop;
     }
 
     @Transactional

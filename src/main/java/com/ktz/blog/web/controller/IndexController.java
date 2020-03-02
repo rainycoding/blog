@@ -84,11 +84,7 @@ public class IndexController {
         if (id == -1) {
             id = categories.get(0).getId();
         }
-        Blog blog = new Blog();
-        Category category = new Category();
-        category.setId(id);
-        blog.setCategory(category);
-        Page<Blog> page = blogService.listBlogs(pageable, blog);
+        Page<Blog> page = blogService.listBlogsByCategoryId(id, pageable);
         model.addAttribute("categories", categories);
         model.addAttribute("page", page);
         model.addAttribute("activeCategoryId", id);
