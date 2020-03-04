@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificationExecutor<Blog> {
 
+    public Blog getBlogByPublishedTrueAndId(Long id);
+
     @Query("select count(b) from Blog b where b.published = true ")
     public int getNum();
 
@@ -35,6 +37,4 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
     @Query("select b from  Blog b where function('date_format', b.updateTime, '%Y') = ?1 and b.published = true")
     public List<Blog> findBlogsByYear(String year);
 
-//    @Query("select b from Blog b where b.title like ?1 or b.content like ?1")
-//    public Page<Blog> findByQuery(String query,Pageable pageable);
 }

@@ -16,3 +16,7 @@ logging:
     root: info
     com.ktz.blog: debug
   config: classpath:logback-spring.xml
+
+file:
+  savedPath: D:/blog/img/
+  urlPath: /img/

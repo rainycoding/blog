@@ -67,11 +67,13 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public Blog getBlogAndConvert(Long id) {
-        Blog blog = blogRepository.getOne(id);
+        Blog blog = blogRepository.getBlogByPublishedTrueAndId(id);
         Blog b = new Blog();
-        BeanUtils.copyProperties(blog, b);
-        String tempContent = MarkdownUtils.markdownToHtmlExtensions(b.getContent());
-        b.setContent(tempContent);
+        if (blog != null) {
+            BeanUtils.copyProperties(blog, b);
+            String tempContent = MarkdownUtils.markdownToHtmlExtensions(b.getContent());
+            b.setContent(tempContent);
+        }
         return b;
     }
 

@@ -16,3 +16,7 @@ logging:
     root: warn
     com.ktz.blog: info
   config: classpath:logback-spring.xml
+
+file:
+  savedPath: /usr/local/blog/img/
+  urlPath: /img/

@@ -219,7 +219,8 @@
         position: "left center"
     });
 
-    var serverUrl = "127.0.0.1";
+    var serverUrl = window.location.host;
+    console.log(serverUrl);
     var textUrl = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("qrcode", {
         text: serverUrl + textUrl,
