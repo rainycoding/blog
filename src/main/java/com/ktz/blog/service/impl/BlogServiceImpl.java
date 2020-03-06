@@ -3,6 +3,7 @@ package com.ktz.blog.service.impl;
 import com.ktz.blog.dao.BlogRepository;
 import com.ktz.blog.entity.Blog;
 import com.ktz.blog.entity.Category;
+import com.ktz.blog.entity.Comment;
 import com.ktz.blog.entity.Tag;
 import com.ktz.blog.exception.NotFoundException;
 import com.ktz.blog.service.BlogService;
@@ -184,8 +185,12 @@ public class BlogServiceImpl implements BlogService {
     public void removeBlog(Long id) {
         Blog b = blogRepository.getOne(id);
         List<Tag> tags = b.getTags();
+        List<Comment> comments = b.getComments();
         for (Tag tag : tags) {
             tag.getBlogs().remove(b);
+        }
+        for (Comment comment : comments) {
+            comment.setBlog(null);
         }
         blogRepository.deleteById(id);
     }

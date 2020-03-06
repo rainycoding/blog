@@ -42,7 +42,7 @@
                         <div class="ui teal basic left pointing label m-padding-mini" th:text="${#arrays.length(blog.category.blogs.size())}">20</div>
                     </div>
                 </div>
-                <div id="content" th:utext="${blog.content}" class="typo typo-selection m-padding-tb-large m-padding-lr-large-responsive js-toc-content"></div>
+                <div id="content" th:utext="${blog.content}" class="typo typo-selection m-padding-tb-large m-padding-lr-big-responsive js-toc-content"></div>
                 <div class="m-padding-lr-large-responsive">
                     <div th:each="tag : ${blog.tags}" th:text="${tag.name}" class="ui mini tag label m-margin-right-default">springboot</div>
                 </div>
@@ -219,7 +219,8 @@
         position: "left center"
     });
 
-    var serverUrl = "127.0.0.1";
+    var serverUrl = window.location.host;
+    console.log(serverUrl);
     var textUrl = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("qrcode", {
         text: serverUrl + textUrl,

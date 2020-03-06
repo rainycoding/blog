@@ -4,7 +4,6 @@
   font-size: 16px;
   font-weight: 300;
   letter-spacing: 1px;
-  line-height: 1.8;
   text-align: justify;
 }
 
@@ -71,6 +70,14 @@
 /* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
 .typo ul, .typo ol {
   list-style: none;
+}
+
+.typo li {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  line-height: 2;
+  text-align: justify;
 }
 
 /* 对齐是排版最重要的因素, 别让什么都居中 */
@@ -213,7 +220,7 @@ a:hover {
 /* 保证块/段落之间的空白隔行 */
 .typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr, .typo table,
 .typo-p, .typo-pre, .typo-ul, .typo-ol, .typo-dl, .typo-form, .typo-hr, .typo-table, blockquote {
-  margin-bottom: 1.2em
+  margin-bottom: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -253,13 +260,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 在文章中，应该还原 ul 和 ol 的样式 */
 .typo ul, .typo-ul {
-  margin-left: 1.3em;
+  margin-left: 0 !important;
   list-style: disc;
 }
 
 .typo ol, .typo-ol {
   list-style: decimal;
-  margin-left: 1.9em;
+  margin-left: 0 !important;
 }
 
 .typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
