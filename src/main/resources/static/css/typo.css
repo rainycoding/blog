@@ -5,6 +5,7 @@
   font-weight: 300;
   letter-spacing: 1px;
   text-align: justify;
+  margin: 10px 0;
 }
 
 /* 要注意表单元素并不继承父级 font 的问题 */
@@ -70,6 +71,7 @@
 /* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
 .typo ul, .typo ol {
   list-style: none;
+  padding: 0 0 0 20px;
 }
 
 .typo li {

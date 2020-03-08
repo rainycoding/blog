@@ -41,6 +41,6 @@ public class MD5Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5Utils.code("123456"));
+        System.out.println(MD5Utils.code("z321q510m622."));
     }
 }

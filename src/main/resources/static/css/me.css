@@ -212,7 +212,15 @@ body {
     .m-moblie-show {
         display: block !important;
     }
-    .m-padding-lr-large-responsive, m-padding-lr-big-responsive, m-padding-lr-default-responsive {
+    .m-padding-lr-default-responsive {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .m-padding-lr-big-responsive {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .m-padding-lr-large-responsive {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }

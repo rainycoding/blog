@@ -3,7 +3,10 @@ spring:
     mode: HTML
 
   profiles:
-    active: dev
+    active: pro
+
+  resources:
+    static-locations:
 
 comment:
   avatar: /images/avatar.png

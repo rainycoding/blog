@@ -131,6 +131,16 @@ body {
     padding-right: 1em !important;
 }
 
+.m-padding-lr-default-responsive {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
+
+.m-padding-lr-big-responsive {
+    padding-left: 2em !important;
+    padding-right: 2em !important;
+}
+
 .m-padding-lr-large-responsive {
     padding-left: 3em !important;
     padding-right: 3em !important;
@@ -201,6 +211,14 @@ body {
     }
     .m-moblie-show {
         display: block !important;
+    }
+    .m-padding-lr-default-responsive {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .m-padding-lr-big-responsive {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
     .m-padding-lr-large-responsive {
         padding-left: 0 !important;

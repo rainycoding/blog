@@ -6,7 +6,7 @@
     <!--日志存放路径,windows会将日志存放到当前磁盘 c:/usr/local/blog/blog.log -->
     <!--日志存放路径,Linux会将日志存放到当前磁盘 /usr/local/blog/blog.log -->
     <property scope="context" name="APP_NAME" value="blog"/>
-    <property scope="context" name="LOG_FILE_PATH" value="D:/usr/local/${APP_NAME}/log" />
+    <property scope="context" name="LOG_FILE_PATH" value="/usr/local/${APP_NAME}/log" />
 
     <!--配置输出到控制台-->
     <!-- Appender 有两个属性name 和class可以配置

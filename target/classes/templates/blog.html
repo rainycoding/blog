@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 图片 -->
+            <!-- 博客首图 -->
             <div class="ui attached segment">
                 <img src="https://picsum.photos/id/1001/800/450" th:src="@{${blog.firstPicture}}" class="ui rounded fluid image">
             </div>
@@ -36,19 +36,24 @@
                     <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
                 </div>
                 <h1 class="ui center aligned header" th:text="${blog.title}">Spring Boot</h1>
+                <!-- 博客分类 -->
                 <div class="ui center aligned basic segment m-margin-zone m-padding-zone">
                     <div class="ui labeled button m-margin-bottom-default">
                         <a href="#" class="ui teal basic button m-padding-mini" th:text="${blog.category.name}">springboot</a>
                         <div class="ui teal basic left pointing label m-padding-mini" th:text="${#arrays.length(blog.category.blogs.size())}">20</div>
                     </div>
                 </div>
+                <!-- 博客具体内容 -->
                 <div id="content" th:utext="${blog.content}" class="typo typo-selection m-padding-tb-large m-padding-lr-big-responsive js-toc-content"></div>
+                <!-- 博客标签 -->
                 <div class="m-padding-lr-large-responsive">
                     <div th:each="tag : ${blog.tags}" th:text="${tag.name}" class="ui mini tag label m-margin-right-default">springboot</div>
                 </div>
+                <!-- 赞赏按钮 -->
                 <div class="ui center aligned basic segment" th:if="${blog.appreciation}">
                     <button type="button" id="paybtn" class="ui orange basic circular button">赞赏</button>
                 </div>
+                <!-- 赞赏的二维码 -->
                 <div class="ui payQ flowing popup transition hidden">
                     <div class="ui orange basic label">
                         <div class="ui images" style="font-size: inherit !important;">
@@ -71,7 +76,7 @@
                         <ul class="list">
                             <li class="m-margin-default">作者：<span th:text="${blog.user.nickname}">沐雨</span><a th:href="@{/about}">（联系作者）</a></li>
                             <li class="m-margin-default">发表时间：<span th:text="${#temporals.format(blog.createTime, 'yyyy-MM-dd HH:mm')}">2020-2-22 22:01</span></li>
-                            <li class="m-margin-default">版本声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
+                            <li class="m-margin-default">版本声明：自由转载-非商用-非衍生-保持署名</li>
                             <li class="m-margin-default">公众号转载：请在文末添加作者公众号二维码</li>
                         </ul>
                     </div>
