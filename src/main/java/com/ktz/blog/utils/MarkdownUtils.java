@@ -81,6 +81,6 @@ public class MarkdownUtils {
                 "| AAAA     | 你好时间 | 什么鬼 | \n" +
                 "\n";
         String a = "[imCoding 爱编程]{http://www.lirenmi.cn}";
-        System.out.println(markdownToHtmlExtensions(a));
+        System.out.println(markdownToHtmlExtensions(table));
     }
 }

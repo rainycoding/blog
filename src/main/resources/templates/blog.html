@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <!-- 博客具体内容 -->
-                <div id="content" th:utext="${blog.content}" class="typo typo-selection m-padding-tb-large m-padding-lr-big-responsive js-toc-content"></div>
+                <div id="content" th:utext="${blog.content}"  class="typo typo-selection m-padding-tb-large m-padding-lr-big-responsive js-toc-content"></div>
                 <!-- 博客标签 -->
                 <div class="m-padding-lr-large-responsive">
                     <div th:each="tag : ${blog.tags}" th:text="${tag.name}" class="ui mini tag label m-margin-right-default">springboot</div>

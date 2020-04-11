@@ -39,7 +39,7 @@ public class IndexController {
     private CommentService commentService;
 
     @GetMapping("/")
-    public String index(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+    public String index(@PageableDefault(size = 10, sort = {"createTime"}, direction = Sort.Direction.DESC)
                         Pageable pageable, Model model) {
         Page<Blog> page = blogService.listBlogs(pageable);
         List<Category> categories = categoryService.listCategoryTop(6);
@@ -53,7 +53,7 @@ public class IndexController {
     }
 
     @PostMapping("/search")
-    public String search(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String search(@PageableDefault(size = 10, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          @RequestParam String query, Model model) {
         Page<Blog> page = blogService.listBlogs(query, pageable);
         model.addAttribute("page", page);
@@ -77,7 +77,7 @@ public class IndexController {
     }
 
     @GetMapping("/category")
-    public String categories(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String categories(@PageableDefault(size = 10, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                              @RequestParam(defaultValue = "-1") Long id,  Model model) {
         Integer size = categoryService.getNum();
         List<Category> categories = categoryService.listCategoryTop(size);
@@ -101,7 +101,7 @@ public class IndexController {
     }
 
     @GetMapping("/tags")
-    public String tags(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public String tags(@PageableDefault(size = 10, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                        @RequestParam(defaultValue = "-1") Long id, Model model) {
         Integer size = tagService.getNum();
         List<Tag> tags = tagService.listTagTop(size);

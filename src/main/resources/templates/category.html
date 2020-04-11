@@ -43,7 +43,7 @@
                                             <div class="content"><div class="header" th:text="${blog.user.nickname}">沐雨</div></div>
                                         </div>
                                         <div class="item">
-                                            <i class="calendar icon"></i> <span th:text="${#temporals.format(blog.updateTime, 'yyyy-MM-dd')}">2020-2-22</span>
+                                            <i class="calendar icon"></i> <span th:text="${#temporals.format(blog.createTime, 'yyyy-MM-dd')}">2020-2-22</span>
                                         </div>
                                         <div class="item">
                                             <i class="eye icon"></i> <span th:text="${blog.views}">2003</span>
